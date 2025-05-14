@@ -20,24 +20,24 @@ public class BookingController {
         return ResponseEntity.ok(bookingService.getBooking(id).orElse(null));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Booking>> getAllBookings() {
         List<Booking> bookings = bookingService.getAllBookings();
         return ResponseEntity.ok(bookings);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         return ResponseEntity.ok(bookingService.createBooking(booking));
     }
 
 
-    @PutMapping("/{id}")
+    @PutMapping("/update_{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking booking) {
         return ResponseEntity.ok(bookingService.updateBooking(id, booking).orElse(null));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete_{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         bookingService.deleteBooking(id);
         return ResponseEntity.ok().build();

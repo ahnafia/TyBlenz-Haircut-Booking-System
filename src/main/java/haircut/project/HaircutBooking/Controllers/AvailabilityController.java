@@ -1,5 +1,6 @@
 package haircut.project.HaircutBooking.Controllers;
 
+import haircut.project.HaircutBooking.Models.AvailabilityRequest;
 import haircut.project.HaircutBooking.Service.AvailabilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,18 +24,14 @@ public class AvailabilityController {
         return ResponseEntity.ok(availabilityService.getAvailabilityforDate(date));
     }
 
-    @PostMapping("/{date}")
-    public ResponseEntity<List<LocalTime>> addAvailabilityForDate(
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time) {
-        return ResponseEntity.ok(availabilityService.addAvailabilityforDate(date, time));
+
+    @PostMapping("/add")
+    public ResponseEntity<List<LocalTime>> addAvailabilityForDate(@RequestBody AvailabilityRequest request) {
+        return ResponseEntity.ok(availabilityService.addAvailabilityforDate(request.getDate(), request.getTime()));
     }
 
-
-    @DeleteMapping("/{date}")
-    public ResponseEntity<List<LocalTime>> deleteAvailabilityForDate(
-            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.TIME) LocalTime time) {
-        return ResponseEntity.ok(availabilityService.deleteAvailabilityforDate(date, time));
+    @DeleteMapping("/delete")
+    public ResponseEntity<List<LocalTime>> deleteAvailabilityForDate(@RequestBody AvailabilityRequest request) {
+        return ResponseEntity.ok(availabilityService.deleteAvailabilityforDate(request.getDate(), request.getTime()));
     }
 }
